@@ -21,28 +21,28 @@ def phoenix(d1,d2,f):
         if component.name == "VEVENT":
             today=component.get('dtstart').dt
             #print(today)
-            
-            summary = component.get('summary')
-            location = component.get('location')
-            startdt = component.get('dtstart').dt
-            # print(startdt)
-            # print(d1)
-            # print(d2)
-            enddt = component.get('dtend').dt
-            #print(enddt)
-            if component.get('rrule'):
-                reoccur = component.get('rrule').to_ical().decode('utf-8')
-                for item in reyna(reoccur,d1,d2):
-                    print(item)
+            if(d1<=today<=d2):
+                summary = component.get('summary')
+                location = component.get('location')
+                startdt = component.get('dtstart').dt
+                # print(startdt)
+                # print(d1)
+                # print(d2)
+                enddt = component.get('dtend').dt
+                #print(enddt)
+                if component.get('rrule'):
+                    reoccur = component.get('rrule').to_ical().decode('utf-8')
+                    for item in reyna(reoccur,d1,d2):
+                        print(item)
+                        print("-------------------------------")
+                        print("{0} to {1}: {2} {{{{{3}}}}}".format(startdt.strftime("%I:%M %p"),enddt.strftime('%I:%M %p'),summary,location))
+                        print()
+                            
+                else:
+                    print(startdt.strftime("%B %d, %Y (%a)"))
                     print("-------------------------------")
                     print("{0} to {1}: {2} {{{{{3}}}}}".format(startdt.strftime("%I:%M %p"),enddt.strftime('%I:%M %p'),summary,location))
                     print()
-                        
-            else:
-                print(startdt.strftime("%B %d, %Y (%a)"))
-                print("-------------------------------")
-                print("{0} to {1}: {2} {{{{{3}}}}}".format(startdt.strftime("%I:%M %p"),enddt.strftime('%I:%M %p'),summary,location))
-                print()
     g.close()
                 
 
